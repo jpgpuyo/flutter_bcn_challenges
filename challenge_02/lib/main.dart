@@ -27,21 +27,6 @@ ThemeData _buildAppTheme() {
   return base.copyWith(
     accentColor: Colors.tealAccent,
     primaryColor: Colors.purple,
-    textTheme: _buildAppTextTheme(base.textTheme),
   );
-}
-
-TextTheme _buildAppTextTheme(TextTheme base) {
-  return base.copyWith(
-      headline: base.headline.copyWith(
-        fontWeight: FontWeight.w500,
-      ),
-      title: base.title.copyWith(color: Colors.white),
-      subhead: base.subhead.copyWith(
-          color: Colors.white, fontSize: 12.0, fontWeight: FontWeight.w400),
-      caption: base.caption.copyWith(
-        fontWeight: FontWeight.w400,
-        fontSize: 14.0,
-      ));
 }
 
