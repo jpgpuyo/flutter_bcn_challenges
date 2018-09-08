@@ -1,7 +1,8 @@
-import 'AppNavigator.dart';
+import 'package:challenge_03/core/navigation/AppNavigator.dart';
 import 'package:flutter/material.dart';
-import 'products.dart';
-import 'cart.dart';
+import 'package:challenge_03/data/model/products.dart';
+import 'package:challenge_03/data/model/cart.dart';
+import 'package:challenge_03/injection/Injector.dart';
 
 class ProductsListPage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class ProductsListState extends State<ProductsListPage> {
   int items = 0;
 
   void addToCart(int id) {
-    cart.items.add(CartItem(1, products.firstWhere((item) => item.id == id)));
+    Injector.cartRepository.getShoppingCart().items.add(CartItem(1, products.firstWhere((item) => item.id == id)));
     setState(() {
       items = items + 1;
     });

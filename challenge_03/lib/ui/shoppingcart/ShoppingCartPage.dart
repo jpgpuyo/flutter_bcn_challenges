@@ -1,15 +1,31 @@
+import 'package:challenge_03/ui/shoppingcart/ShoppingCartPresenter.dart';
 import 'package:flutter/material.dart';
 
-import 'AppNavigator.dart';
-import 'products.dart';
-import 'cart.dart';
+import 'package:challenge_03/core/navigation/AppNavigator.dart';
+import 'package:challenge_03/data/model/cart.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   @override
   ShoppingCartState createState() => ShoppingCartState();
 }
 
-class ShoppingCartState extends State<ShoppingCartPage> {
+class ShoppingCartState extends State<ShoppingCartPage>
+    implements ShoppingCartView {
+  ShoppingCartPresenter presenter;
+
+  Cart cart = new Cart(new List());
+
+  ShoppingCartState() {
+    presenter = new ShoppingCartPresenter(this);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    presenter.init();
+    presenter.getShoppingCart();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -29,7 +45,8 @@ class ShoppingCartState extends State<ShoppingCartPage> {
     return new SizedBox(
         height: 100.0,
         child: Center(
-            child: new Text("Total products:" + cart.getTotalItems().toString())));
+            child:
+                new Text("Total products:" + cart.getTotalItems().toString())));
   }
 
   Widget shoppingCartList() {
@@ -40,10 +57,23 @@ class ShoppingCartState extends State<ShoppingCartPage> {
             itemBuilder: (_, index) => ListTile(
                 contentPadding: EdgeInsets.only(
                     left: 16.0, top: 16.0, right: 16.0, bottom: 0.0),
-                leading: Image.network(products[index].imageUrl),
+                leading: Image.network(cart.getItems()[index].product.imageUrl),
                 title: Text(cart.getItems()[index].product.name),
                 subtitle: Text(cart.getItems()[index].product.description),
                 trailing: Text(cart.getItems()[index].getPrice().toString()))));
+  }
+
+  @override
+  renderCart(Cart cart) {
+    setState(() {
+      this.cart = cart;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    presenter.dispose();
   }
 }
 

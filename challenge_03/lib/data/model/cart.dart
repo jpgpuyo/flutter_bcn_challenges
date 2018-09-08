@@ -30,5 +30,3 @@ class CartItem {
     return quantity * product.price;
   }
 }
-
-final Cart cart = Cart(new List());

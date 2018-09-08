@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'AppNavigator.dart';
-import 'ShoppingCartPage.dart';
+import 'package:challenge_03/core/navigation/AppNavigator.dart';
+import 'package:challenge_03/ui/shoppingcart/ShoppingCartPage.dart';
 
 void main() {
   AppNavigator.init();
