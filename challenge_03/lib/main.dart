@@ -1,3 +1,6 @@
+import 'package:challenge_03/blocs/BlocProvider.dart';
+import 'package:challenge_03/blocs/ShoppingCartBloc.dart';
+import 'package:challenge_03/injection/Injector.dart';
 import 'package:flutter/material.dart';
 
 import 'package:challenge_03/core/navigation/AppNavigator.dart';
@@ -16,7 +19,10 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: new ShoppingCartPage(),
+      home: BlocProvider<ShoppingCartBloc>(
+        bloc: ShoppingCartBloc(Injector.cartRepository),
+        child: ShoppingCartPage(),
+      ),
     );
   }
 }

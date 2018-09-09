@@ -1,3 +1,6 @@
+import 'package:challenge_03/blocs/BlocProvider.dart';
+import 'package:challenge_03/blocs/ProductListBloc.dart';
+import 'package:challenge_03/injection/Injector.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge_03/ui/productslist/ProductsListPage.dart';
@@ -8,7 +11,11 @@ class AppNavigator {
   static void init() {
     _router.define("/productsList", handler: new Handler(
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      return new ProductListPage();
+      return BlocProvider<ProductListBloc>(
+        bloc: ProductListBloc(
+            Injector.cartRepository, Injector.productsRepository),
+        child: new ProductListPage(),
+      );
     }));
   }
 
