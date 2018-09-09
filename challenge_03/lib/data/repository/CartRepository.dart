@@ -1,7 +1,9 @@
 import 'package:challenge_03/data/model/cart.dart';
+import 'package:challenge_03/data/model/products.dart';
 
 abstract class CartRepository {
   Cart getShoppingCart();
+  void addProductToShoppingCart(Product product);
 }
 
 class CartRepositoryImpl implements CartRepository {
@@ -17,5 +19,10 @@ class CartRepositoryImpl implements CartRepository {
   @override
   Cart getShoppingCart() {
     return cart;
+  }
+
+  @override
+  void addProductToShoppingCart(Product product) {
+    cart.items.add(CartItem(1, product));
   }
 }

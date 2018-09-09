@@ -8,7 +8,7 @@ class AppNavigator {
   static void init() {
     _router.define("/productsList", handler: new Handler(
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      return new ProductsListPage();
+      return new ProductListPage();
     }));
   }
 
