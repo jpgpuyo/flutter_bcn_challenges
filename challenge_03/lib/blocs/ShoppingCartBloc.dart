@@ -8,29 +8,31 @@ import 'package:rxdart/rxdart.dart';
 class ShoppingCartBloc implements BlocBase {
   CartRepository cartRepository;
 
-  final StreamController _inController = new StreamController<Cart>.broadcast();
+  final StreamController _inShoppingCartController =
+      new StreamController<Cart>.broadcast();
 
-  StreamSink get _shoppingCartRequest => _inController.sink;
+  final StreamController _outShoppingCartController =
+      new BehaviorSubject<Cart>();
 
-  final StreamController _outController = new BehaviorSubject<Cart>();
+  StreamSink get inShoppingCart => _inShoppingCartController.sink;
 
-  Stream<Cart> get shoppingCartStream => _outController.stream;
+  Stream<Cart> get outShoppingCart => _outShoppingCartController.stream;
 
   ShoppingCartBloc(CartRepository cartRepository) {
     this.cartRepository = cartRepository;
 
-    _inController.stream.listen((_) {
-      _outController.add(cartRepository.getShoppingCart());
-    });
+    _handleGetShoppingListUseCase(cartRepository);
   }
 
-  void getShoppingCart() {
-    _shoppingCartRequest.add(null);
+  void _handleGetShoppingListUseCase(CartRepository cartRepository) {
+    _inShoppingCartController.stream.listen((_) {
+      _outShoppingCartController.add(cartRepository.getShoppingCart());
+    });
   }
 
   @override
   void dispose() {
-    _inController.close();
-    _outController.close();
+    _inShoppingCartController.close();
+    _outShoppingCartController.close();
   }
 }

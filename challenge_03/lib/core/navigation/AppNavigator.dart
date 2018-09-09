@@ -1,15 +1,15 @@
 import 'package:challenge_03/blocs/BlocProvider.dart';
 import 'package:challenge_03/blocs/ProductListBloc.dart';
-import 'package:challenge_03/injection/Injector.dart';
+import 'package:challenge_03/core/injection/Injector.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:challenge_03/ui/productslist/ProductsListPage.dart';
+import 'package:challenge_03/ui/productlist/ProductsListPage.dart';
 
 class AppNavigator {
   static final Router _router = new Router();
 
   static void init() {
-    _router.define("/productsList", handler: new Handler(
+    _router.define("/productList", handler: new Handler(
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
       return BlocProvider<ProductListBloc>(
         bloc: ProductListBloc(
@@ -20,7 +20,7 @@ class AppNavigator {
   }
 
   static void goToProductsList(context) {
-    _goTo(context, "/productsList", transition: TransitionType.fadeIn);
+    _goTo(context, "/productList", transition: TransitionType.fadeIn);
   }
 
   static void back(context) {

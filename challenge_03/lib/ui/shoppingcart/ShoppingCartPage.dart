@@ -15,7 +15,7 @@ class ShoppingCartState extends State<ShoppingCartPage> {
   void initState() {
     final ShoppingCartBloc shoppingCartBloc =
         BlocProvider.of<ShoppingCartBloc>(context);
-    shoppingCartBloc.getShoppingCart();
+    shoppingCartBloc.inShoppingCart.add(null);
   }
 
   @override
@@ -40,7 +40,7 @@ class ShoppingCartState extends State<ShoppingCartPage> {
     return new SizedBox(
         height: 100.0,
         child: StreamBuilder<Cart>(
-            stream: shoppingCartBloc.shoppingCartStream,
+            stream: shoppingCartBloc.outShoppingCart,
             builder: (context, snapshot) {
               int totalItems =
                   snapshot.data == null ? 0 : snapshot.data.getTotalItems();
@@ -56,7 +56,7 @@ class ShoppingCartState extends State<ShoppingCartPage> {
     return Container(
         height: 400.0,
         child: StreamBuilder<Cart>(
-            stream: shoppingCartBloc.shoppingCartStream,
+            stream: shoppingCartBloc.outShoppingCart,
             initialData: Cart(new List()),
             builder: (context, snapshot) {
               Cart cart = snapshot.data;
