@@ -1,20 +1,16 @@
-import 'dart:async';
-
+import 'package:challenge_03/core/injection/Injector.dart';
 import 'package:challenge_03/data/model/products.dart';
-import 'usecase/GetProductListUseCase.dart';
-import 'usecase/AddProductToCartUseCase.dart';
-import 'package:challenge_03/injection/Injector.dart';
+import 'package:challenge_03/usecase/GetProductListUseCase.dart';
+import 'package:challenge_03/usecase/AddProductToCartUseCase.dart';
 
 abstract class ProductListView {
   void renderProductsList(List<Product> productsList);
+
   void productAdded(Product product);
 }
 
 class ProductListPresenter {
   ProductListView _view;
-
-  StreamSubscription getProductListSubscription;
-  StreamSubscription addProductToCartSubscription;
 
   GetProductListUseCase getProductListUseCase;
   AddProductToCartUseCase addProductToCartUseCase;
@@ -28,13 +24,12 @@ class ProductListPresenter {
   }
 
   void init() {
-    getProductListSubscription = getProductListUseCase.stream().listen((productsList) {
+    getProductListUseCase.subscribe((productsList) {
       _view.renderProductsList(productsList);
     });
-    addProductToCartSubscription = addProductToCartUseCase.stream().listen((productAdded) {
+    addProductToCartUseCase.subscribe((productAdded) {
       _view.productAdded(productAdded);
     });
-
   }
 
   void getProductList() {
@@ -46,11 +41,7 @@ class ProductListPresenter {
   }
 
   void dispose() {
-    if (getProductListSubscription != null) {
-      getProductListSubscription.cancel();
-    }
-    if (addProductToCartSubscription != null) {
-      addProductToCartSubscription.cancel();
-    }
+    getProductListUseCase.unsubscribe();
+    addProductToCartUseCase.unsubscribe();
   }
 }

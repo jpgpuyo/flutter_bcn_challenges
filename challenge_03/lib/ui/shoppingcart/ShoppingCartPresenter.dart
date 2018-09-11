@@ -1,8 +1,6 @@
-import 'dart:async';
-
+import 'package:challenge_03/core/injection/Injector.dart';
 import 'package:challenge_03/data/model/cart.dart';
-import 'package:challenge_03/ui/shoppingcart/usecase/GetShoppingCartUseCase.dart';
-import 'package:challenge_03/injection/Injector.dart';
+import 'package:challenge_03/usecase/GetShoppingCartUseCase.dart';
 
 abstract class ShoppingCartView {
   void renderCart(Cart cart);
@@ -11,7 +9,6 @@ abstract class ShoppingCartView {
 class ShoppingCartPresenter {
   ShoppingCartView _view;
 
-  StreamSubscription streamSubscription;
   GetShoppingCartUseCase getShoppingCartUseCase;
 
   ShoppingCartPresenter(ShoppingCartView view) {
@@ -21,9 +18,7 @@ class ShoppingCartPresenter {
   }
 
   void init() {
-    streamSubscription = getShoppingCartUseCase.stream().listen((cart) {
-      _view.renderCart(cart);
-    });
+    getShoppingCartUseCase.subscribe((cart) => _view.renderCart(cart));
   }
 
   void getShoppingCart() {
@@ -31,8 +26,6 @@ class ShoppingCartPresenter {
   }
 
   void dispose() {
-    if (streamSubscription != null) {
-      streamSubscription.cancel();
-    }
+    getShoppingCartUseCase.unsubscribe();
   }
 }
