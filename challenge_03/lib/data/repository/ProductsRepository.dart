@@ -1,39 +1,19 @@
-import 'package:challenge_03/data/model/products.dart';
+import 'dart:async';
+
+import 'package:challenge_03/data/model/product.dart';
+import 'package:challenge_03/data/repository/ProductsFileDataSource.dart';
 
 abstract class ProductsRepository {
-  List<Product> getProductsList();
+  Future<List<Product>> getProductList();
 }
 
 class ProductsRepositoryImpl implements ProductsRepository {
-  final products = [
-    Product(1, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(2, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(3, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(4, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(5, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(6, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(7, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(8, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(9, "Forlayo", "Forlayo lorem ipsum", "http://placekitten.com/80/80",
-        100.0),
-    Product(10, "Forlayo", "Forlayo lorem ipsum",
-        "http://placekitten.com/80/80", 100.0),
-    Product(11, "Forlayo", "Forlayo lorem ipsum",
-        "http://placekitten.com/80/80", 100.0),
-    Product(12, "Forlayo", "Forlayo lorem ipsum",
-        "http://placekitten.com/80/80", 100.0)
-  ];
+  final ProductsFileDataSource productsFileDataSource;
+
+  ProductsRepositoryImpl(this.productsFileDataSource);
 
   @override
-  List<Product> getProductsList() {
-    return products;
+  Future<List<Product>> getProductList() {
+    return productsFileDataSource.fetchProductList();
   }
 }

@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:challenge_03/data/repository/ProductsRepository.dart';
-import 'package:challenge_03/data/model/products.dart';
+import 'package:challenge_03/data/model/product.dart';
 import 'package:challenge_03/usecase/UseCase.dart';
 
-class GetProductListUseCase extends UseCase<List<Product>>{
-
+class GetProductListUseCase extends UseCase<List<Product>> {
   final ProductsRepository productsRepository;
 
   GetProductListUseCase(this.productsRepository);
@@ -13,7 +14,7 @@ class GetProductListUseCase extends UseCase<List<Product>>{
   }
 
   @override
-  List<Product> run() {
-    return productsRepository.getProductsList();
+  Future<List<Product>> run() {
+    return productsRepository.getProductList();
   }
 }

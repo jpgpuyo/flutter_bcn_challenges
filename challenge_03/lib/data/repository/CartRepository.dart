@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:challenge_03/data/model/cart.dart';
-import 'package:challenge_03/data/model/products.dart';
+import 'package:challenge_03/data/model/product.dart';
 
 abstract class CartRepository {
-  Cart getShoppingCart();
-  void addProductToShoppingCart(Product product);
+  Future<Cart> getShoppingCart();
+
+  Future<Product> addProductToShoppingCart(Product product);
 }
 
 class CartRepositoryImpl implements CartRepository {
@@ -17,12 +20,13 @@ class CartRepositoryImpl implements CartRepository {
   final Cart cart = Cart(new List());
 
   @override
-  Cart getShoppingCart() {
+  Future<Cart> getShoppingCart() async {
     return cart;
   }
 
   @override
-  void addProductToShoppingCart(Product product) {
-    cart.items.add(CartItem(1, product));
+  Future<Product> addProductToShoppingCart(Product product) async {
+    await cart.items.add(CartItem(1, product));
+    return product;
   }
 }

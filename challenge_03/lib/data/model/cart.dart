@@ -1,4 +1,4 @@
-import 'products.dart';
+import 'product.dart';
 
 class Cart {
   final List<CartItem> items;

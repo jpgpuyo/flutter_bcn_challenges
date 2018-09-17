@@ -1,5 +1,5 @@
 import 'package:challenge_03/core/injection/Injector.dart';
-import 'package:challenge_03/data/model/products.dart';
+import 'package:challenge_03/data/model/product.dart';
 import 'package:challenge_03/usecase/GetProductListUseCase.dart';
 import 'package:challenge_03/usecase/AddProductToCartUseCase.dart';
 

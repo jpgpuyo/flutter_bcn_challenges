@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:challenge_03/data/repository/ProductsRepository.dart';
 import 'package:challenge_03/data/repository/CartRepository.dart';
-import 'package:challenge_03/data/model/products.dart';
+import 'package:challenge_03/data/model/product.dart';
 import 'package:challenge_03/usecase/UseCase.dart';
 
 class AddProductToCartUseCase extends UseCase<Product> {
@@ -18,8 +20,7 @@ class AddProductToCartUseCase extends UseCase<Product> {
   }
 
   @override
-  Product run() {
-    cartRepository.addProductToShoppingCart(product);
-    return product;
+  Future<Product> run() async{
+    return cartRepository.addProductToShoppingCart(product);
   }
 }

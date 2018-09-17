@@ -1,4 +1,5 @@
 import 'package:challenge_03/data/repository/CartRepository.dart';
+import 'package:challenge_03/data/repository/ProductsFileDataSource.dart';
 import 'package:challenge_03/data/repository/ProductsRepository.dart';
 
 class Injector {
@@ -11,5 +12,7 @@ class Injector {
   Injector._internal();
 
   static CartRepository get cartRepository => new CartRepositoryImpl();
-  static ProductsRepository get productsRepository => new ProductsRepositoryImpl();
+
+  static ProductsRepository get productsRepository =>
+      new ProductsRepositoryImpl(new ProductsFileDataSource());
 }

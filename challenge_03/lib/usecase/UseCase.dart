@@ -14,7 +14,9 @@ abstract class UseCase<T> {
   StreamSubscription<T> subscribe(void onData(T event),
       {Function onError, void onDone(), bool cancelOnError}) {
     _inController.stream.listen((_) {
-      _outController.add(run());
+      run().then((response) {
+        _outController.add(response);
+      });
     });
     streamSubscription = _outputStream.listen(onData,
         onError: onError, onDone: onDone, cancelOnError: cancelOnError);
@@ -28,5 +30,5 @@ abstract class UseCase<T> {
     _outController.close();
   }
 
-  T run();
+  Future<T> run();
 }
