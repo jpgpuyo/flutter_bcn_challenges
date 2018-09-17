@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:challenge_03/core/model/Product.dart';
-import 'package:challenge_03/data/repository/ProductsFileDataSource.dart';
+import 'package:challenge_03/data/products/ProductsFileDataSource.dart';
 
 abstract class ProductsRepository {
   Future<List<Product>> getProductList();

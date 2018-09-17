@@ -1,7 +1,7 @@
 import 'package:challenge_03/core/model/Product.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'ProductDto.g.dart';
+part 'package:challenge_03/data/products/ProductDto.g.dart';
 
 @JsonSerializable()
 class ProductDto extends Object with _$ProductDtoSerializerMixin {

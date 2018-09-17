@@ -1,6 +1,6 @@
-import 'package:challenge_03/data/repository/CartRepository.dart';
-import 'package:challenge_03/data/repository/ProductsFileDataSource.dart';
-import 'package:challenge_03/data/repository/ProductsRepository.dart';
+import 'package:challenge_03/data/cart/CartRepository.dart';
+import 'package:challenge_03/data/products/ProductsFileDataSource.dart';
+import 'package:challenge_03/data/products/ProductsRepository.dart';
 
 class Injector {
   static final Injector _singleton = new Injector._internal();

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:challenge_03/data/repository/CartRepository.dart';
+import 'package:challenge_03/data/cart/CartRepository.dart';
 import 'package:challenge_03/core/model/cart.dart';
 import 'package:challenge_03/usecase/UseCase.dart';
 

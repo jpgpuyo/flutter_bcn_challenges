@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:challenge_03/data/model/ProductDto.dart';
+import 'package:challenge_03/data/products/ProductDto.dart';
 import 'package:flutter/services.dart';
 
 class ProductsFileDataSource {
