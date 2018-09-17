@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:challenge_03/data/model/product.dart';
+import 'package:challenge_03/core/model/Product.dart';
 import 'package:challenge_03/data/repository/ProductsFileDataSource.dart';
 
 abstract class ProductsRepository {
@@ -14,6 +14,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
 
   @override
   Future<List<Product>> getProductList() {
-    return productsFileDataSource.fetchProductList();
+    return productsFileDataSource.fetchProductList().then((productListDto) =>
+        productListDto.map((dto) => dto.toModel()).toList());
   }
 }

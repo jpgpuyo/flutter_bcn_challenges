@@ -1,6 +1,6 @@
 import 'package:challenge_03/core/navigation/AppNavigator.dart';
+import 'package:challenge_03/core/model/Product.dart';
 import 'package:flutter/material.dart';
-import 'package:challenge_03/data/model/product.dart';
 import 'ProductListPresenter.dart';
 
 class ProductListPage extends StatefulWidget {

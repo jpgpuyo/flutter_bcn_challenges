@@ -1,5 +1,5 @@
 import 'package:challenge_03/core/injection/Injector.dart';
-import 'package:challenge_03/data/model/cart.dart';
+import 'package:challenge_03/core/model/cart.dart';
 import 'package:challenge_03/usecase/GetShoppingCartUseCase.dart';
 
 abstract class ShoppingCartView {

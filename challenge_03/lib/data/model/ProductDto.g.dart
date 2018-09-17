@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product.dart';
+part of 'ProductDto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Product _$ProductFromJson(Map<String, dynamic> json) {
-  return new Product(
+ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) {
+  return new ProductDto(
       json['id'] as int,
       json['name'] as String,
       json['description'] as String,
@@ -15,7 +15,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
       (json['price'] as num)?.toDouble());
 }
 
-abstract class _$ProductSerializerMixin {
+abstract class _$ProductDtoSerializerMixin {
   int get id;
   String get name;
   String get description;

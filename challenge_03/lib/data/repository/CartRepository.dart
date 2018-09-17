@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:challenge_03/data/model/cart.dart';
-import 'package:challenge_03/data/model/product.dart';
+import 'package:challenge_03/core/model/cart.dart';
+import 'package:challenge_03/core/model/Product.dart';
 
 abstract class CartRepository {
   Future<Cart> getShoppingCart();

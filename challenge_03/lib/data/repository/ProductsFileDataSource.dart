@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:challenge_03/data/model/product.dart';
+import 'package:challenge_03/data/model/ProductDto.dart';
 import 'package:flutter/services.dart';
 
 class ProductsFileDataSource {
-  Future<List<Product>> fetchProductList() async {
+  Future<List<ProductDto>> fetchProductList() async {
     String jsonString = await rootBundle.loadString('assets/products.json');
     final jsonResponse = json.decode(jsonString) as List;
 
-    List<Product> productList =
-        jsonResponse.map((product) => Product.fromJson(product)).toList();
+    List<ProductDto> productList =
+        jsonResponse.map((product) => ProductDto.fromJson(product)).toList();
     return productList;
   }
 }

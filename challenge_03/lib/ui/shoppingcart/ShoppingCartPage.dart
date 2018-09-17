@@ -2,7 +2,7 @@ import 'package:challenge_03/ui/shoppingcart/ShoppingCartPresenter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:challenge_03/core/navigation/AppNavigator.dart';
-import 'package:challenge_03/data/model/cart.dart';
+import 'package:challenge_03/core/model/cart.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   @override

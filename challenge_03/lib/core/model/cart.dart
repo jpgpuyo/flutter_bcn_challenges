@@ -1,4 +1,4 @@
-import 'product.dart';
+import 'package:challenge_03/core/model/Product.dart';
 
 class Cart {
   final List<CartItem> items;
