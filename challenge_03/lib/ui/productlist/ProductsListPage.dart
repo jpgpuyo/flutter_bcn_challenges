@@ -1,7 +1,7 @@
 import 'package:challenge_03/core/navigation/AppNavigator.dart';
 import 'package:challenge_03/core/model/Product.dart';
 import 'package:flutter/material.dart';
-import 'ProductListPresenter.dart';
+import 'package:challenge_03/ui/productlist/ProductListPresenter.dart';
 
 class ProductListPage extends StatefulWidget {
   @override
