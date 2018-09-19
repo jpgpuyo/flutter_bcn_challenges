@@ -21,12 +21,16 @@ class Cart {
 }
 
 class CartItem {
-  final int quantity;
+  int quantity;
   final Product product;
 
   CartItem(this.quantity, this.product);
 
   double getPrice() {
     return quantity * product.price;
+  }
+
+  bool isEmpty() {
+    return quantity <= 0;
   }
 }

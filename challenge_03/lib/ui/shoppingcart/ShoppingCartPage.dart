@@ -54,13 +54,46 @@ class ShoppingCartState extends State<ShoppingCartPage>
         height: 400.0,
         child: ListView.builder(
             itemCount: cart.getTotalItems(),
-            itemBuilder: (_, index) => ListTile(
-                contentPadding: EdgeInsets.only(
-                    left: 16.0, top: 16.0, right: 16.0, bottom: 0.0),
-                leading: Image.network(cart.getItems()[index].product.imageUrl),
-                title: Text(cart.getItems()[index].product.name),
-                subtitle: Text(cart.getItems()[index].product.description),
-                trailing: Text(cart.getItems()[index].getPrice().toString()))));
+            itemBuilder: (_, index) => shoppingCartItem(index)));
+  }
+
+  Widget shoppingCartItem(int index) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Image.network(cart.getItems()[index].product.imageUrl),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text(cart.getItems()[index].product.name),
+              Text(cart.getItems()[index].product.description),
+              Text(cart.getItems()[index].getPrice().toString())
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.add_shopping_cart),
+                  onPressed: () {
+                    presenter.addCartItem(cart.getItems()[index]);
+                  }),
+              IconButton(
+                  icon: Icon(Icons.remove_shopping_cart), onPressed: () {
+                    presenter.removeCartItem(cart.getItems()[index]);
+              }),
+            ],
+          ),
+          Text(
+            "x" + cart.getItems()[index].quantity.toString(),
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -74,6 +107,11 @@ class ShoppingCartState extends State<ShoppingCartPage>
   void dispose() {
     super.dispose();
     presenter.dispose();
+  }
+
+  @override
+  void cartUpdated() {
+    presenter.getShoppingCart();
   }
 }
 
