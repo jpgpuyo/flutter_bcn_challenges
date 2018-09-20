@@ -30,7 +30,14 @@ class CartRepositoryImpl implements CartRepository {
 
   @override
   Future<Product> addProductToShoppingCart(Product product) async {
-    await cart.items.add(CartItem(1, product));
+    try {
+      var cartItem = await getItemForProduct(product);
+      int currentQuantity = cartItem.quantity;
+      await removeCartItem(CartItem(1, product));
+      await addCartItem(currentQuantity + 1, product);
+    } catch(exception) {
+      await  addCartItem(1, product);
+    }
     return product;
   }
 
@@ -50,5 +57,14 @@ class CartRepositoryImpl implements CartRepository {
     await cart
         .getItems()
         .removeWhere((item) => item.product.id == cartItem.product.id);
+  }
+
+  void addCartItem(int quantity, Product product) =>
+      cart.items.add(CartItem(quantity, product));
+
+  Future<CartItem> getItemForProduct(Product product) async {
+    return await cart
+        .getItems()
+        .firstWhere((item) => item.product.id == product.id);
   }
 }
