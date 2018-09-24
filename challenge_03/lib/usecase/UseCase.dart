@@ -11,7 +11,7 @@ abstract class UseCase<T> {
 
   StreamSubscription<T> streamSubscription;
 
-  StreamSubscription<T> subscribe(void onData(T event),
+  void subscribe(void onData(T event),
       {Function onError, void onDone(), bool cancelOnError}) {
     _inController.stream.listen((_) {
       run().then((response) {

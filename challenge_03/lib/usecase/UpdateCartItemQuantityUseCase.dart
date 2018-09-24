@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:challenge_03/core/model/Cart.dart';
-import 'package:challenge_03/core/model/Product.dart';
-import 'package:challenge_03/data/products/ProductsRepository.dart';
 import 'package:challenge_03/data/cart/CartRepository.dart';
 import 'package:challenge_03/usecase/UseCase.dart';
 
@@ -27,7 +25,7 @@ class UpdateCartItemQuantityUseCase extends UseCase<void> {
         .then((updatedItem) => _removeCartItemIfEmpty(_cartItem));
   }
 
-  Future<CartItem> _removeCartItemIfEmpty(CartItem cartItem) {
+  void _removeCartItemIfEmpty(CartItem cartItem) {
     if (cartItem.isEmpty()) {
       cartRepository.removeCartItem(cartItem);
     }
