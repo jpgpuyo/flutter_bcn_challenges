@@ -9,7 +9,9 @@ abstract class UseCase<T> {
 
   void execute() {
     run().then((response) {
-      _outController.add(response);
+      if (!_outController.isClosed) {
+        _outController.add(response);
+      }
     });
   }
 
