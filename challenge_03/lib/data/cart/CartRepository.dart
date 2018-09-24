@@ -14,13 +14,6 @@ abstract class CartRepository {
 }
 
 class CartRepositoryImpl implements CartRepository {
-  static final CartRepositoryImpl cartRepository =
-      new CartRepositoryImpl._internal();
-
-  CartRepositoryImpl._internal();
-
-  factory CartRepositoryImpl() => cartRepository;
-
   final Cart cart = Cart(new List());
 
   @override
