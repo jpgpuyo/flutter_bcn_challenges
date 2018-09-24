@@ -24,47 +24,39 @@ class CartRepositoryImpl implements CartRepository {
   final Cart cart = Cart(new List());
 
   @override
-  Future<Cart> getShoppingCart() async {
-    return cart;
+  Future<Cart> getShoppingCart() {
+    return Future.value(cart);
   }
 
   @override
-  Future<Product> addProductToShoppingCart(Product product) async {
-    try {
-      var cartItem = await getItemForProduct(product);
-      int currentQuantity = cartItem.quantity;
-      await removeCartItem(CartItem(1, product));
-      await addCartItem(currentQuantity + 1, product);
-    } catch(exception) {
-      await  addCartItem(1, product);
+  Future<Product> addProductToShoppingCart(Product product) {
+    var cartItem = cart.getItems().firstWhere(
+        (item) => product.id == item.product.id,
+        orElse: () => CartItem(0, product));
+
+    if (cartItem.isEmpty()) {
+      cartItem.quantity = cartItem.quantity + 1;
+      cart.items.add(cartItem);
+    } else {
+      updateCartItemQuantity(cartItem.quantity + 1, cartItem);
     }
-    return product;
+    return Future.value(product);
   }
 
   @override
-  Future<CartItem> updateCartItemQuantity(
-      int quantity, CartItem cartItem) async {
-    var itemToUpdate = await cart
+  Future<CartItem> updateCartItemQuantity(int quantity, CartItem cartItem) {
+    var itemToUpdate = cart
         .getItems()
         .firstWhere((item) => item.product.id == cartItem.product.id);
 
     itemToUpdate.quantity = quantity;
-    return itemToUpdate;
+    return Future.value(itemToUpdate);
   }
 
   @override
-  Future<void> removeCartItem(CartItem cartItem) async {
-    await cart
+  Future<void> removeCartItem(CartItem cartItem) {
+    cart
         .getItems()
         .removeWhere((item) => item.product.id == cartItem.product.id);
-  }
-
-  void addCartItem(int quantity, Product product) =>
-      cart.items.add(CartItem(quantity, product));
-
-  Future<CartItem> getItemForProduct(Product product) async {
-    return await cart
-        .getItems()
-        .firstWhere((item) => item.product.id == product.id);
   }
 }
