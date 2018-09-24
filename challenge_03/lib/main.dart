@@ -6,6 +6,7 @@ import 'package:challenge_03/ui/shoppingcart/ShoppingCartPage.dart';
 
 void main() {
   Injector.init();
+  Injector.dbHelper.init();
   AppNavigator.init();
   runApp(new MyApp());
 }
