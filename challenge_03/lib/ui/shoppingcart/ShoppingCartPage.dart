@@ -82,9 +82,10 @@ class ShoppingCartState extends State<ShoppingCartPage>
                     presenter.addCartItem(cart.getItems()[index]);
                   }),
               IconButton(
-                  icon: Icon(Icons.remove_shopping_cart), onPressed: () {
+                  icon: Icon(Icons.remove_shopping_cart),
+                  onPressed: () {
                     presenter.removeCartItem(cart.getItems()[index]);
-              }),
+                  }),
             ],
           ),
           Text(
