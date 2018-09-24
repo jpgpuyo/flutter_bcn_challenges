@@ -9,10 +9,6 @@ class GetProductListUseCase extends UseCase<List<Product>> {
 
   GetProductListUseCase(this.productsRepository);
 
-  void execute() {
-    input.add(null);
-  }
-
   @override
   Future<List<Product>> run() {
     return productsRepository.getProductList();

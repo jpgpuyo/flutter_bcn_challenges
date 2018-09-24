@@ -38,10 +38,12 @@ class ShoppingCartPresenter {
   }
 
   void addCartItem(CartItem cartItem) {
-    updateCartItemQuantityUseCase.execute(cartItem.quantity + 1, cartItem);
+    updateCartItemQuantityUseCase.setParams(cartItem.quantity + 1, cartItem);
+    updateCartItemQuantityUseCase.execute();
   }
 
   void removeCartItem(CartItem cartItem) {
-    updateCartItemQuantityUseCase.execute(cartItem.quantity -1, cartItem);
+    updateCartItemQuantityUseCase.setParams(cartItem.quantity - 1, cartItem);
+    updateCartItemQuantityUseCase.execute();
   }
 }

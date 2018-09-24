@@ -37,7 +37,8 @@ class ProductListPresenter {
   }
 
   void addProductToCart(Product product) {
-    addProductToCartUseCase.execute(product);
+    addProductToCartUseCase.setParams(product);
+    addProductToCartUseCase.execute();
   }
 
   void dispose() {

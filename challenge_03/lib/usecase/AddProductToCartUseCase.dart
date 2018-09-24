@@ -10,17 +10,16 @@ class AddProductToCartUseCase extends UseCase<Product> {
 
   final CartRepository cartRepository;
 
-  Product product;
+  Product _product;
 
   AddProductToCartUseCase(this.productsRepository, this.cartRepository);
 
-  void execute(Product product) {
-    this.product = product;
-    input.add(product);
+  void setParams(Product product) {
+    this._product = product;
   }
 
   @override
   Future<Product> run() async {
-    return cartRepository.addProductToShoppingCart(product);
+    return cartRepository.addProductToShoppingCart(_product);
   }
 }

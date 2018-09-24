@@ -9,12 +9,8 @@ class GetShoppingCartUseCase extends UseCase<Cart> {
 
   GetShoppingCartUseCase(this.cartRepository);
 
-  void execute() {
-    input.add(null);
-  }
-
   @override
-  Future<Cart> run(){
+  Future<Cart> run() {
     return cartRepository.getShoppingCart();
   }
 }

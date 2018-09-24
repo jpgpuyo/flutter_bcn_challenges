@@ -12,10 +12,9 @@ class UpdateCartItemQuantityUseCase extends UseCase<void> {
 
   UpdateCartItemQuantityUseCase(this.cartRepository);
 
-  void execute(int quantity, CartItem cartItem) {
+  void setParams(int quantity, CartItem cartItem) {
     this._quantity = quantity;
     this._cartItem = cartItem;
-    input.add(null);
   }
 
   @override
