@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:challenge_03/core/model/Cart.dart';
 import 'package:challenge_03/core/model/Product.dart';
+import 'package:challenge_03/data/cart/CartMemoryDataSource.dart';
 
 abstract class CartRepository {
   Future<Cart> getShoppingCart();
@@ -10,46 +11,31 @@ abstract class CartRepository {
 
   Future<CartItem> updateCartItemQuantity(int quantity, CartItem cartItem);
 
-  Future<void> removeCartItem(CartItem cartItem);
+  Future<Null> removeCartItem(CartItem cartItem);
 }
 
 class CartRepositoryImpl implements CartRepository {
-  final Cart cart = Cart(new List());
+  final CartMemoryDataSource cartMemoryDataSource;
+
+  CartRepositoryImpl(this.cartMemoryDataSource);
 
   @override
   Future<Cart> getShoppingCart() {
-    return Future.value(cart);
+    return cartMemoryDataSource.getShoppingCart();
   }
 
   @override
   Future<Product> addProductToShoppingCart(Product product) {
-    var cartItem = cart.getItems().firstWhere(
-        (item) => product.id == item.product.id,
-        orElse: () => CartItem(0, product));
-
-    if (cartItem.isEmpty()) {
-      cartItem.quantity = cartItem.quantity + 1;
-      cart.items.add(cartItem);
-    } else {
-      updateCartItemQuantity(cartItem.quantity + 1, cartItem);
-    }
-    return Future.value(product);
+    return cartMemoryDataSource.addProductToShoppingCart(product);
   }
 
   @override
   Future<CartItem> updateCartItemQuantity(int quantity, CartItem cartItem) {
-    var itemToUpdate = cart
-        .getItems()
-        .firstWhere((item) => item.product.id == cartItem.product.id);
-
-    itemToUpdate.quantity = quantity;
-    return Future.value(itemToUpdate);
+    return cartMemoryDataSource.updateCartItemQuantity(quantity, cartItem);
   }
 
   @override
-  Future<void> removeCartItem(CartItem cartItem) {
-    cart
-        .getItems()
-        .removeWhere((item) => item.product.id == cartItem.product.id);
+  Future<Null> removeCartItem(CartItem cartItem) async {
+    cartMemoryDataSource.removeCartItem(cartItem);
   }
 }

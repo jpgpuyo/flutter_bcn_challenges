@@ -1,3 +1,4 @@
+import 'package:challenge_03/data/cart/CartMemoryDataSource.dart';
 import 'package:challenge_03/data/cart/CartRepository.dart';
 import 'package:challenge_03/data/products/ProductsFileDataSource.dart';
 import 'package:challenge_03/data/products/ProductsRepository.dart';
@@ -5,7 +6,6 @@ import 'package:get_it/get_it.dart';
 
 class Injector {
   static final Injector _singleton = new Injector._internal();
-
   GetIt _getIt;
 
   factory Injector() {
@@ -17,14 +17,21 @@ class Injector {
   }
 
   static init() {
-    Injector()._getIt.registerSingleton(new CartRepositoryImpl());
-    Injector()._getIt.registerSingleton(
-        new ProductsRepositoryImpl(new ProductsFileDataSource()));
+    _singleton._getIt.registerSingleton(_singleton._createCartRepository());
+    _singleton._getIt.registerSingleton(_singleton._createProductsRepository());
+  }
+
+  CartRepository _createCartRepository() {
+    return new CartRepositoryImpl(new CartMemoryDataSource());
+  }
+
+  ProductsRepository _createProductsRepository() {
+    return new ProductsRepositoryImpl(new ProductsFileDataSource());
   }
 
   static CartRepository get cartRepository =>
-      Injector()._getIt<CartRepositoryImpl>();
+      _singleton._getIt<CartRepository>();
 
   static ProductsRepository get productsRepository =>
-      Injector()._getIt<ProductsRepositoryImpl>();
+      _singleton._getIt<ProductsRepository>();
 }
