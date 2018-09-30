@@ -4,6 +4,8 @@ import 'package:challenge_03/usecase/GetProductListUseCase.dart';
 import 'package:challenge_03/usecase/AddProductToCartUseCase.dart';
 
 abstract class ProductListView {
+  void showLoading();
+
   void renderProductsList(List<Product> productsList);
 
   void productAdded(Product product);

@@ -3,6 +3,8 @@ import 'package:challenge_03/core/model/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge_03/ui/productlist/ProductListPresenter.dart';
 
+enum StateProductList { LOADING, SHOW_PRODUCT_LIST }
+
 class ProductListPage extends StatefulWidget {
   @override
   ProductsListState createState() => ProductsListState();
@@ -13,6 +15,8 @@ class ProductsListState extends State<ProductListPage>
   List<Product> productList = new List();
 
   ProductListPresenter presenter;
+
+  StateProductList currentState = StateProductList.LOADING;
 
   ProductsListState() {
     this.presenter = new ProductListPresenter(this);
@@ -31,11 +35,23 @@ class ProductsListState extends State<ProductListPage>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new ProductsListToolbar(), body: productsList());
+    return new Scaffold(appBar: new ProductsListToolbar(), body: body());
   }
 
-  Widget productsList() {
+  Widget body() {
+    switch (currentState) {
+      case StateProductList.LOADING:
+        return loadingWidget();
+      case StateProductList.SHOW_PRODUCT_LIST:
+        return productListWidget();
+    }
+  }
+
+  Widget loadingWidget() {
+    return Center(child: CircularProgressIndicator());
+  }
+
+  Widget productListWidget() {
     return Container(
         child: ListView.builder(
             itemCount: productList.length,
@@ -52,9 +68,17 @@ class ProductsListState extends State<ProductListPage>
   }
 
   @override
+  void showLoading() {
+    setState(() {
+      currentState = StateProductList.LOADING;
+    });
+  }
+
+  @override
   void renderProductsList(List<Product> productList) {
     setState(() {
       this.productList = productList;
+      currentState = StateProductList.SHOW_PRODUCT_LIST;
     });
   }
 
