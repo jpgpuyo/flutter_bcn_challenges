@@ -1,10 +1,7 @@
-import 'package:challenge_03/core/model/Cart.dart';
 import 'package:challenge_03/core/model/Product.dart';
-import 'package:challenge_03/data/cart/CartDb.dart';
 import 'package:challenge_03/data/database/DbMapper.dart';
-import 'package:challenge_03/data/products/ProductDb.dart';
 
-class ProductDbMapper extends DbMapper<ProductDb, Product> {
+class ProductDbMapper extends DbMapper<Product> {
   static const String db_id = "id";
   static const db_name = "name";
   static const db_description = "description";
@@ -14,8 +11,8 @@ class ProductDbMapper extends DbMapper<ProductDb, Product> {
   ProductDbMapper();
 
   @override
-  ProductDb fromMap(Map<String, dynamic> map) {
-    return ProductDb(
+  Product toModel(Map<String, dynamic> map) {
+    return Product(
       map[db_id],
       map[db_name],
       map[db_description],
@@ -25,35 +22,13 @@ class ProductDbMapper extends DbMapper<ProductDb, Product> {
   }
 
   @override
-  ProductDb fromModel(Product model) {
-    return ProductDb(
-      model.id,
-      model.name,
-      model.description,
-      model.imageUrl,
-      model.price,
-    );
-  }
-
-  @override
-  Map<String, dynamic> toMap(ProductDb db) {
+  Map<String, dynamic> toMap(Product model) {
     return {
-      db_id: db.id,
-      db_name: db.name,
-      db_description: db.description,
-      db_imageUrl: db.imageUrl,
-      db_price: db.price,
+      db_id: model.id,
+      db_name: model.name,
+      db_description: model.description,
+      db_imageUrl: model.imageUrl,
+      db_price: model.price,
     };
-  }
-
-  @override
-  Product toModel(ProductDb db) {
-    return Product(
-      db.id,
-      db.name,
-      db.description,
-      db.imageUrl,
-      db.price,
-    );
   }
 }

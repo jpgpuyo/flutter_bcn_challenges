@@ -1,9 +1,8 @@
 import 'package:challenge_03/core/model/Cart.dart';
 import 'package:challenge_03/core/model/Product.dart';
-import 'package:challenge_03/data/cart/CartDb.dart';
 import 'package:challenge_03/data/database/DbMapper.dart';
 
-class CartItemDbMapper extends DbMapper<CartItemDb, CartItem> {
+class CartItemDbMapper extends DbMapper<CartItem> {
   static const String db_quantity = "quantity";
   static const db_productId = "productId";
   static const db_productName = "name";
@@ -14,48 +13,24 @@ class CartItemDbMapper extends DbMapper<CartItemDb, CartItem> {
   CartItemDbMapper();
 
   @override
-  CartItemDb fromMap(Map<String, dynamic> map) {
-    return CartItemDb(
-      map[db_quantity],
-      map[db_productId],
-      map[db_productName],
-      map[db_productDescription],
-      map[db_productImageUrl],
-      map[db_productPrice],
-    );
-  }
-
-  @override
-  CartItemDb fromModel(CartItem model) {
-    return CartItemDb(
-      model.quantity,
-      model.product.id,
-      model.product.name,
-      model.product.description,
-      model.product.imageUrl,
-      model.product.price,
-    );
-  }
-
-  @override
-  Map<String, dynamic> toMap(CartItemDb db) {
-    return {
-      db_quantity: db.quantity,
-      db_productId: db.productId,
-    };
-  }
-
-  @override
-  CartItem toModel(CartItemDb db) {
+  CartItem toModel(Map<String, dynamic> map) {
     return CartItem(
-      db.quantity,
+      map[db_quantity],
       Product(
-        db.productId,
-        db.productName,
-        db.productDescription,
-        db.productImageUrl,
-        db.productPrice,
+        map[db_productId],
+        map[db_productName],
+        map[db_productDescription],
+        map[db_productImageUrl],
+        map[db_productPrice],
       ),
     );
+  }
+
+  @override
+  Map<String, dynamic> toMap(CartItem model) {
+    return {
+      db_quantity: model.quantity,
+      db_productId: model.product.id,
+    };
   }
 }

@@ -6,8 +6,8 @@ import 'package:sqflite/sqflite.dart';
 
 class DbHelper {
   final String databaseName = "shoppingapp.db";
-  final String tableProduct = "Product";
-  final String tableCartItem = "CartItem";
+  static final String tableProduct = "Product";
+  static final String tableCartItem = "CartItem";
 
   Database _db;
 
@@ -21,7 +21,7 @@ class DbHelper {
 
   void _onCreate(Database db, int version) async {
     print("onCreate database");
-    await db.execute("CREATE TABLE Product" +
+    await db.execute("CREATE TABLE $tableProduct" +
         "(" +
         "id INTEGER PRIMARY KEY," +
         "name TEXT," +
