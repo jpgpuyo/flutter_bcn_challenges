@@ -4,13 +4,18 @@ import 'package:challenge_03/core/model/Cart.dart';
 import 'package:challenge_03/core/model/Product.dart';
 
 class CartMemoryDataSource {
-  final Cart cart = Cart(new List());
+  Cart cart = Cart(new List());
 
   Future<Cart> getShoppingCart() {
     return Future.value(cart);
   }
 
-  Future<Product> addProductToShoppingCart(Product product) {
+  Future<Cart> updateCart(Cart cart) {
+    this.cart = cart;
+    return Future.value(cart);
+  }
+
+  Future<CartItem> addProductToShoppingCart(Product product) {
     var cartItem = cart.getItems().firstWhere(
         (item) => product.id == item.product.id,
         orElse: () => CartItem(0, product));
@@ -18,10 +23,10 @@ class CartMemoryDataSource {
     if (cartItem.isEmpty()) {
       cartItem.quantity = cartItem.quantity + 1;
       cart.items.add(cartItem);
+      return Future.value(cartItem);
     } else {
-      updateCartItemQuantity(cartItem.quantity + 1, cartItem);
+      return updateCartItemQuantity(cartItem.quantity + 1, cartItem);
     }
-    return Future.value(product);
   }
 
   Future<CartItem> updateCartItemQuantity(int quantity, CartItem cartItem) {

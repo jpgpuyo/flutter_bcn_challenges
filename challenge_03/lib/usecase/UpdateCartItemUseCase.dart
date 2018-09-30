@@ -4,13 +4,13 @@ import 'package:challenge_03/core/model/Cart.dart';
 import 'package:challenge_03/data/cart/CartRepository.dart';
 import 'package:challenge_03/usecase/UseCase.dart';
 
-class UpdateCartItemQuantityUseCase extends UseCase<void> {
+class UpdateCartItemUseCase extends UseCase<void> {
   final CartRepository cartRepository;
 
   int _quantity;
   CartItem _cartItem;
 
-  UpdateCartItemQuantityUseCase(this.cartRepository);
+  UpdateCartItemUseCase(this.cartRepository);
 
   void setParams(int quantity, CartItem cartItem) {
     this._quantity = quantity;
@@ -19,14 +19,7 @@ class UpdateCartItemQuantityUseCase extends UseCase<void> {
 
   @override
   Future<void> run() async {
-    cartRepository
-        .updateCartItemQuantity(_quantity, _cartItem)
-        .then((updatedItem) => _removeCartItemIfEmpty(_cartItem));
-  }
-
-  void _removeCartItemIfEmpty(CartItem cartItem) {
-    if (cartItem.isEmpty()) {
-      cartRepository.removeCartItem(cartItem);
-    }
+    return cartRepository
+        .updateCartItem(_quantity, _cartItem);
   }
 }

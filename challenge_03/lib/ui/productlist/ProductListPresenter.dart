@@ -27,8 +27,8 @@ class ProductListPresenter {
     getProductListUseCase.subscribe((productsList) {
       _view.renderProductsList(productsList);
     });
-    addProductToCartUseCase.subscribe((productAdded) {
-      _view.productAdded(productAdded);
+    addProductToCartUseCase.subscribe((cartItem) {
+      _view.productAdded(cartItem.product);
     });
   }
 
