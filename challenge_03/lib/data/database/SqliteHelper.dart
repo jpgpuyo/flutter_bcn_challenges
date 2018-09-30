@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:challenge_03/data/database/SqliteTables.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DbHelper {
+class SqliteHelper {
   final String databaseName = "shoppingapp.db";
-  static final String tableProduct = "Product";
-  static final String tableCartItem = "CartItem";
 
   Database _db;
 
@@ -20,20 +19,9 @@ class DbHelper {
   }
 
   void _onCreate(Database db, int version) async {
-    print("onCreate database");
-    await db.execute("CREATE TABLE $tableProduct" +
-        "(" +
-        "id INTEGER PRIMARY KEY," +
-        "name TEXT," +
-        "description TEXT," +
-        "imageUrl TEXT," +
-        "price REAL" +
-        ")");
-    await db.execute("CREATE TABLE $tableCartItem" +
-        "(" +
-        "quantity INTEGER," +
-        "productId INTEGER PRIMARY KEY" +
-        ")");
+    for (var createTable in SqliteTables.getCreateTables()) {
+      await db.execute(createTable);
+    }
   }
 
   Future<List<Map<String, dynamic>>> get(String rawQuery) async {
@@ -65,7 +53,8 @@ class DbHelper {
   }
 
   Future<bool> delete(
-      String tableName, String columnId, int columnValue) async {
+      String tableName, String columnId, Map<String, dynamic> map) async {
+    var columnValue = map[columnId];
     await db.delete(tableName, where: "$columnId = $columnValue");
     return Future.value(true);
   }

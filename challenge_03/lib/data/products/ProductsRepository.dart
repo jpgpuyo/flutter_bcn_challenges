@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:challenge_03/core/model/Product.dart';
-import 'package:challenge_03/data/products/ProductDbDataSource.dart';
+import 'package:challenge_03/data/products/ProductsDbDataSource.dart';
 import 'package:challenge_03/data/products/ProductsFileDataSource.dart';
 
 abstract class ProductsRepository {
