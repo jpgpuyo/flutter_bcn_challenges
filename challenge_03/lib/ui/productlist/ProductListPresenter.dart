@@ -35,6 +35,7 @@ class ProductListPresenter {
   }
 
   void getProductList() {
+    _view.showLoading();
     getProductListUseCase.execute();
   }
 

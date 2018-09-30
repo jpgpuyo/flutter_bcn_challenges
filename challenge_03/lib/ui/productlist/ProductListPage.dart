@@ -52,19 +52,24 @@ class ProductListState extends State<ProductListPage>
   }
 
   Widget productListWidget() {
-    return Container(
-        child: ListView.builder(
-            itemCount: productList.length,
-            itemBuilder: (_, index) => ListTile(
-                contentPadding: EdgeInsets.only(
-                    left: 16.0, top: 16.0, right: 16.0, bottom: 0.0),
-                leading: Image.network(productList[index].imageUrl),
-                title: Text(productList[index].name),
-                subtitle: Text(productList[index].description),
-                trailing: Text(productList[index].price.toString()),
-                onTap: () {
-                  addToCart(productList[index].id);
-                })));
+    return new RefreshIndicator(
+        child: Container(
+            child: ListView.builder(
+                itemCount: productList.length,
+                itemBuilder: (_, index) => ListTile(
+                    contentPadding: EdgeInsets.only(
+                        left: 16.0, top: 16.0, right: 16.0, bottom: 0.0),
+                    leading: Image.network(productList[index].imageUrl),
+                    title: Text(productList[index].name),
+                    subtitle: Text(productList[index].description),
+                    trailing: Text(productList[index].price.toString()),
+                    onTap: () {
+                      addToCart(productList[index].id);
+                    }))),
+        onRefresh: () async {
+          presenter.getProductList();
+          return;
+        });
   }
 
   @override
