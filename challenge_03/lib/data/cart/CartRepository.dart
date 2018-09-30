@@ -10,9 +10,7 @@ abstract class CartRepository {
 
   Future<CartItem> addProductToShoppingCart(Product product);
 
-  Future<CartItem> updateCartItemQuantity(int quantity, CartItem cartItem);
-
-  Future<void> removeCartItem(CartItem cartItem);
+  Future<void> updateCartItem(int quantity, CartItem cartItem);
 }
 
 class CartRepositoryImpl implements CartRepository {
@@ -37,16 +35,13 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<CartItem> updateCartItemQuantity(int quantity, CartItem cartItem) {
-    return cartMemoryDataSource
-        .updateCartItemQuantity(quantity, cartItem)
-        .then((cartItem) => cartDbDataSource.updateCart(cartItem));
-  }
-
-  @override
-  Future<void> removeCartItem(CartItem cartItem) async {
-    return cartDbDataSource
-        .removeFromCart(cartItem)
-        .then((_) => cartMemoryDataSource.removeCartItem(cartItem));
+  Future<void> updateCartItem(int quantity, CartItem cartItem) async {
+    CartItem itemUpdated =
+        await cartMemoryDataSource.updateCartItemQuantity(quantity, cartItem);
+    if (!itemUpdated.isEmpty()) {
+      await cartDbDataSource.updateCart(itemUpdated);
+    } else {
+      await cartDbDataSource.removeFromCart(cartItem);
+    }
   }
 }
