@@ -7,10 +7,10 @@ enum StateProductList { LOADING, SHOW_PRODUCT_LIST }
 
 class ProductListPage extends StatefulWidget {
   @override
-  ProductsListState createState() => ProductsListState();
+  ProductListState createState() => ProductListState();
 }
 
-class ProductsListState extends State<ProductListPage>
+class ProductListState extends State<ProductListPage>
     implements ProductListView {
   List<Product> productList = new List();
 
@@ -18,7 +18,7 @@ class ProductsListState extends State<ProductListPage>
 
   StateProductList currentState = StateProductList.LOADING;
 
-  ProductsListState() {
+  ProductListState() {
     this.presenter = new ProductListPresenter(this);
   }
 
@@ -35,7 +35,7 @@ class ProductsListState extends State<ProductListPage>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(appBar: new ProductsListToolbar(), body: body());
+    return new Scaffold(appBar: new ProductListToolbar(), body: body());
   }
 
   Widget body() {
@@ -75,7 +75,7 @@ class ProductsListState extends State<ProductListPage>
   }
 
   @override
-  void renderProductsList(List<Product> productList) {
+  void renderProductList(List<Product> productList) {
     setState(() {
       this.productList = productList;
       currentState = StateProductList.SHOW_PRODUCT_LIST;
@@ -94,6 +94,6 @@ class ProductsListState extends State<ProductListPage>
   }
 }
 
-class ProductsListToolbar extends AppBar {
-  ProductsListToolbar() : super(title: new Text("Products List"));
+class ProductListToolbar extends AppBar {
+  ProductListToolbar() : super(title: new Text("Products List"));
 }

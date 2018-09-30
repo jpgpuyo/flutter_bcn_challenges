@@ -34,7 +34,7 @@ class ShoppingCartState extends State<ShoppingCartPage>
         children: <Widget>[shoppingCartInfo(), shoppingCartList()],
       ),
       floatingActionButton: new FloatingActionButton(
-        onPressed: () => AppNavigator.goToProductsList(context),
+        onPressed: () => AppNavigator.goToProductList(context),
         tooltip: 'Add to cart',
         child: new Icon(Icons.add),
       ),

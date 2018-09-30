@@ -6,7 +6,7 @@ import 'package:challenge_03/usecase/AddProductToCartUseCase.dart';
 abstract class ProductListView {
   void showLoading();
 
-  void renderProductsList(List<Product> productsList);
+  void renderProductList(List<Product> productList);
 
   void productAdded(Product product);
 }
@@ -26,8 +26,8 @@ class ProductListPresenter {
   }
 
   void init() {
-    getProductListUseCase.subscribe((productsList) {
-      _view.renderProductsList(productsList);
+    getProductListUseCase.subscribe((productList) {
+      _view.renderProductList(productList);
     });
     addProductToCartUseCase.subscribe((cartItem) {
       _view.productAdded(cartItem.product);
