@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:challenge_03/data/cart/CartDb.dart';
-import 'package:challenge_03/data/products/ProductDb.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -38,55 +36,42 @@ class DbHelper {
         ")");
   }
 
-  Future<List<ProductDb>> getProductList() async {
-    var result = await _db.rawQuery("SELECT * FROM $tableProduct ORDER BY id");
+  Future<List<Map<String, dynamic>>> get(String rawQuery) async {
+    var result = await _db.rawQuery(rawQuery);
     if (result.length == 0) {
       return [];
     } else {
-      return result.map((rowDb) => ProductDb.fromMap(rowDb)).toList();
+      return result;
     }
   }
 
-  Future<bool> saveProductList(List<ProductDb> productList) async {
+  Future<bool> insertAll(
+      String tableName, List<Map<String, dynamic>> mapList) async {
     await db.transaction((txn) async {
-      for (var productDb in productList) {
-        await txn.insert(tableProduct, productDb.toMap());
+      for (var map in mapList) {
+        await txn.insert(tableName, map);
       }
     });
     return Future.value(true);
   }
 
-  Future<bool> clearProductList() async {
-    await db.delete(tableProduct);
-    return Future.value(true);
-  }
-
-  Future<List<CartItemDb>> getCartItems() async {
-    var result = await _db.rawQuery(
-        "SELECT * FROM CartItem INNER JOIN Product ON CartItem.productId=Product.id");
-    if (result.length == 0) {
-      return [];
-    } else {
-      return result.map((rowDb) => CartItemDb.fromMap(rowDb)).toList();
-    }
-  }
-
-  Future<bool> insertCartItem(CartItemDb cartItemDb) async {
-    await db.insert(tableCartItem, cartItemDb.toMap());
-    return Future.value(true);
-  }
-
-  Future<bool> updateCartItem(CartItemDb cartItemDb) async {
-    int quantity = cartItemDb.quantity;
-    int productId = cartItemDb.productId;
+  Future<bool> insertOrReplace(
+      String tableName, Map<String, dynamic> map) async {
+    String columnNames = map.keys.join(",");
+    String columnValues = map.values.join(",");
     await db.rawInsert(
-        "INSERT OR REPLACE INTO $tableCartItem(quantity,productId) VALUES($quantity,$productId)");
+        "INSERT OR REPLACE INTO $tableName($columnNames) VALUES($columnValues)");
     return Future.value(true);
   }
 
-  Future<bool> deleteCartItem(CartItemDb cartItemDb) async {
-    int productId = cartItemDb.productId;
-    await db.delete(tableCartItem, where: "productId = $productId");
+  Future<bool> delete(
+      String tableName, String columnId, int columnValue) async {
+    await db.delete(tableName, where: "$columnId = $columnValue");
+    return Future.value(true);
+  }
+
+  Future<bool> deleteAll(String tableName) async {
+    await db.delete(tableName);
     return Future.value(true);
   }
 }
