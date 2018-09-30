@@ -1,3 +1,4 @@
+import 'package:challenge_03/data/cart/CartDbDataSource.dart';
 import 'package:challenge_03/data/cart/CartMemoryDataSource.dart';
 import 'package:challenge_03/data/cart/CartRepository.dart';
 import 'package:challenge_03/data/database/DbHelper.dart';
@@ -25,7 +26,8 @@ class Injector {
   }
 
   CartRepository _createCartRepository() {
-    return new CartRepositoryImpl(new CartMemoryDataSource());
+    return new CartRepositoryImpl(
+        new CartMemoryDataSource(), new CartDbDataSource(dbHelper));
   }
 
   ProductsRepository _createProductsRepository() {

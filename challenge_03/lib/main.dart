@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:challenge_03/core/navigation/AppNavigator.dart';
 import 'package:challenge_03/ui/shoppingcart/ShoppingCartPage.dart';
 
-void main() {
+void main() async {
   Injector.init();
-  Injector.dbHelper.init();
+  await Injector.dbHelper.init();
   AppNavigator.init();
   runApp(new MyApp());
 }

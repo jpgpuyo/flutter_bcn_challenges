@@ -19,14 +19,14 @@ class UpdateCartItemQuantityUseCase extends UseCase<void> {
 
   @override
   Future<void> run() async {
-    cartRepository
+    return cartRepository
         .updateCartItemQuantity(_quantity, _cartItem)
         .then((updatedItem) => _removeCartItemIfEmpty(_cartItem));
   }
 
-  void _removeCartItemIfEmpty(CartItem cartItem) {
+  Future<void> _removeCartItemIfEmpty(CartItem cartItem) {
     if (cartItem.isEmpty()) {
-      cartRepository.removeCartItem(cartItem);
+      return cartRepository.removeCartItem(cartItem);
     }
   }
 }
